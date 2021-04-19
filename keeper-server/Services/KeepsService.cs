@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using keeper_server.Models;
 using keeper_server.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace keeper_server.Services
 {
@@ -72,7 +73,8 @@ namespace keeper_server.Services
 
     internal IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
-      return _repo.GetKeepsByVaultId(id);
+      IEnumerable<VaultKeepViewModel> vaults = _repo.GetKeepsByVaultId(id);
+      return vaults.ToList().FindAll(v => v.IsPrivate == false);
     }
   }
 }

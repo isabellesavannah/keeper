@@ -12,7 +12,7 @@ namespace keeper_server
         [Required]
         public string Description {get; set;}
         [Required]
-        public bool Public {get; set;}
+        public bool IsPrivate {get; set;}
         public Profile Creator {get; set;}
     }
 

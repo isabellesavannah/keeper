@@ -29,7 +29,7 @@ USE finale;
 --    ON DELETE CASCADE
 -- );
 -- DROP TABLE vaults
-
+ALTER TABLE vaults CHANGE public isPrivate TINYINT(1)
 -- CREATE TABLE vaults 
 -- ( 
 --   id INT NOT NULL AUTO_INCREMENT, 
@@ -37,7 +37,7 @@ USE finale;
 --   description VARCHAR(255) NOT NULL,
 --   creatorId VARCHAR(255) NOT NULL, 
 --   PRIMARY KEY (id),
---   public TINYINT(1),
+--   isPrivate TINYINT(1),
 
 --   FOREIGN KEY (creatorId)
 --    REFERENCES profiles (id)

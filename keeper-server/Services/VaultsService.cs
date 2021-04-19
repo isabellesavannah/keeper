@@ -20,14 +20,17 @@ namespace keeper_server.Services
       return _repo.GetAll();
     }
 
-    internal Vault GetById(int id)
+    internal Vault GetById(int id, string userId)
     {
       var data = _repo.GetById(id);
       if (data == null)
       {
         throw new Exception("Invalid Id");
       }
-      // else if (data.CreatorId == userId | data.Public == true)
+      else if (data.CreatorId != userId & data.IsPrivate)
+      {
+        throw new Exception("Not authorized!");
+      }
       return data;
     }
 
@@ -50,7 +53,7 @@ namespace keeper_server.Services
 
     internal Vault Edit(Vault updated)
     {
-      var original = GetById(updated.Id);
+      var original = GetById(updated.Id, updated.CreatorId);
       if (original.CreatorId != updated.CreatorId)
       {
         throw new Exception("Invalid Edit Permissions");
@@ -63,7 +66,7 @@ namespace keeper_server.Services
 
     internal string Delete(int id, string userId)
     {
-      var original = GetById(id);
+      var original = GetById(id, userId);
       if (original.CreatorId != userId)
       {
         throw new Exception("Invalid Delete Permissions");

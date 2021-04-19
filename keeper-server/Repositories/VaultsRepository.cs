@@ -55,9 +55,9 @@ namespace keeper_server.Repositories
     {
       string sql = @"
       INSERT INTO vaults 
-      (name, description, creatorId) 
+      (name, description, isPrivate, creatorId) 
       VALUES 
-      (@Name, @Description, @creatorId);
+      (@Name, @Description, @IsPrivate, @creatorId);
       SELECT LAST_INSERT_ID();";
       int id = _db.ExecuteScalar<int>(sql, newVault);
       newVault.Id = id;
@@ -90,7 +90,7 @@ namespace keeper_server.Repositories
       profile.*
       FROM vaults vault
       JOIN profiles profile ON vault.creatorId = profile.id
-      WHERE vault.creatorId = @id;";
+      WHERE vault.creatorId = @id AND isPrivate = 0;";
       return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
       {
         vault.Creator = profile;

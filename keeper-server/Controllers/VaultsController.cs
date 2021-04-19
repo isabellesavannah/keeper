@@ -36,11 +36,12 @@ namespace keeper_server.Controllers
     }
 
     [HttpGet("{id}")]  // NOTE '{}' signifies a var parameter
-    public ActionResult<Vault> Get(int id)
+    public async Task<ActionResult<Vault>> GetAsync(int id)
     {
       try
       {
-        return Ok(_service.GetById(id));
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_service.GetById(id, userInfo?.Id));
       }
       catch (Exception e)
       {
@@ -109,16 +110,19 @@ namespace keeper_server.Controllers
     //api/wishlists/4/products
 
     [HttpGet("{id}/keeps")]  // NOTE '{}' signifies a var parameter
-    public ActionResult<IEnumerable<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    public async Task<ActionResult<IEnumerable<VaultKeepViewModel>>> GetKeepsByVaultId(int id)
     {
       try
       {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        _service.GetById(id, userInfo?.Id);
         return Ok(_kserv.GetKeepsByVaultId(id));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
+      
     }
 
   }
