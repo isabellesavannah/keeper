@@ -82,22 +82,19 @@ namespace keeper_server.Repositories
       _db.Execute(sql, new { id });
     }
 
-    internal IEnumerable<VaultKeepViewModel> GetVaultByProfileId(string id)
+    internal IEnumerable<Vault> GetVaultByProfileId(string id)
     {
       string sql = @"
       SELECT
       vault.*,
-      vk.id AS VaultKeepId,
-      pr.*
-      FROM vaultkeeps vk
-      JOIN vaults vault ON vk.vaultId = vault.id
-      JOIN profiles pr ON pr.id = vault.creatorId
-      WHERE vk.id = @id;";
-
-      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (Vault, profile) =>
+      profile.*
+      FROM vaults vault
+      JOIN profiles profile ON vault.creatorId = profile.id
+      WHERE vault.creatorId = @id;";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
       {
-        Vault.Creator = profile;
-        return Vault;
+        vault.Creator = profile;
+        return vault;
       }, new { id }, splitOn: "id");
     }
   }

@@ -21,6 +21,7 @@ namespace keeper_server.Controllers
     {
       _service = service;
       _vserv = vserv;
+      _kserv = kserv;
     }
 
     [HttpGet("{id}")]

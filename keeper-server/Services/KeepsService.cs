@@ -47,13 +47,13 @@ namespace keeper_server.Services
       return _repo.Edit(updated);
     }
 
-    internal IEnumerable<VaultKeepViewModel> GetByProfileId(string id)
+    internal IEnumerable<Keep> GetByProfileId(string id)
     {
-      IEnumerable<VaultKeepViewModel> parties = _repo.GetKeepByProfileId(id);
-      return parties.ToList().FindAll(p => p.Public);
+      IEnumerable<Keep> keeps = _repo.GetKeepByProfileId(id);
+      return _repo.GetKeepByProfileId(id);
     }
 
-    internal IEnumerable<VaultKeepViewModel> GetByAccountId(string id)
+    internal IEnumerable<Keep> GetByAccountId(string id)
     {
       return _repo.GetKeepByProfileId(id);
     }

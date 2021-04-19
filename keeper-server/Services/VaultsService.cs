@@ -27,16 +27,18 @@ namespace keeper_server.Services
       {
         throw new Exception("Invalid Id");
       }
+      // else if (data.CreatorId == userId | data.Public == true)
       return data;
     }
 
-    internal IEnumerable<VaultKeepViewModel> GetByProfileId(string id)
+    internal IEnumerable<Vault> GetByProfileId(string id)
     {
-      IEnumerable<VaultKeepViewModel> parties = _repo.GetVaultByProfileId(id);
-      return parties.ToList().FindAll(p => p.Public);
+      IEnumerable<Vault> vaults = _repo.GetVaultByProfileId(id);
+      // return vaults.ToList().FindAll(p => p.Public);
+      return _repo.GetVaultByProfileId(id);
     }
 
-    internal IEnumerable<VaultKeepViewModel> GetByAccountId(string id)
+    internal IEnumerable<Vault> GetByAccountId(string id)
     {
       return _repo.GetVaultByProfileId(id);
     }
