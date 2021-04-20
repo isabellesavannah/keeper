@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+    <div class="col-12 home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
       <keep-component v-for="k in state.keep" :key="k.id" :keep-prop="k" />
     </div>
   </div>

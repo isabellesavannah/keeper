@@ -76,5 +76,10 @@ namespace keeper_server.Services
       IEnumerable<VaultKeepViewModel> vaults = _repo.GetKeepsByVaultId(id);
       return vaults.ToList().FindAll(v => v.IsPrivate == false);
     }
+
+    internal IEnumerable<Keep> GetKeepsByAccountId(string id)
+    {
+      return _repo.GetByOwnerId(id);
+    }
   }
 }

@@ -74,5 +74,10 @@ namespace keeper_server.Services
       _repo.Delete(id);
       return "delorted";
     }
+
+    internal IEnumerable<Vault> GetVaultssByAccountId(string id)
+    {
+      return _repo.GetByOwnerId(id);
+    }
   }
 }

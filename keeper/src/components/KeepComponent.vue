@@ -1,5 +1,5 @@
 <template>
-  <div class="keepComponent col-5 card m-1">
+  <div class="keepComponent col-5 card m-1 img-fluid">
     <h3>{{ keepProp.name }}</h3>
     <p>{{ keepProp.creator.name }}</p>
     <img class="img-fluid" :src="keepProp.img" alt="">

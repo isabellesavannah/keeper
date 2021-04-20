@@ -104,5 +104,21 @@ namespace keeper_server.Repositories
       WHERE vaultId = @id;";
       return _db.Query<VaultKeepViewModel>(sql, new { id });
     }
+
+    internal IEnumerable<Keep> GetByOwnerId(string id)
+    {
+      string sql = @"
+      SELECT 
+      keep.*,
+      profile.*
+      FROM keeps keep
+      JOIN profiles profile ON keep.creatorId = profile.id
+      WHERE keep.creatorId = @id;";
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+      {
+        keep.Creator = profile;
+        return keep;
+      }, new { id }, splitOn: "id");
+    }
   }
 }

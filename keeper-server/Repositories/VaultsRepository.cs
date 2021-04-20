@@ -97,5 +97,21 @@ namespace keeper_server.Repositories
         return vault;
       }, new { id }, splitOn: "id");
     }
+
+    internal IEnumerable<Vault> GetByOwnerId(string id)
+    {
+      string sql = @"
+      SELECT 
+      vault.*,
+      profile.*
+      FROM vaults vault
+      JOIN profiles profile ON vault.creatorId = profile.id
+      WHERE vault.creatorId = @id;";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+      {
+        vault.Creator = profile;
+        return vault;
+      }, new { id }, splitOn: "id");
+    }
   }
 }

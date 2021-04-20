@@ -14,7 +14,7 @@ class KeepService {
   async getKeepsByAccountId() {
     const res = await api.get('account/keeps')
     console.log(res)
-    AppState.activeKeeps = res.data
+    AppState.activeKeep = res.data
   }
 }
 export const keepService = new KeepService()
