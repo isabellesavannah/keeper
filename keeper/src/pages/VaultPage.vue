@@ -1,14 +1,24 @@
 <template>
   <div class="vaultPage">
-    <p>vault page</p>
+    <div class="row">
+      <keep-component v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
+    </div>
   </div>
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { keepService } from '../services/KeepService'
 export default {
   name: 'VaultPage',
   setup() {
-    return {}
+    const state = reactive({
+      keeps: computed(() => AppState.activeKeep)
+    })
+    onMounted(() => keepService.getKeepsByVaultId())
+    return { state }
   },
   components: {}
 }

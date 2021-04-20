@@ -6,6 +6,7 @@ class KeepService {
     try {
       const res = await api.get('api/keeps')
       AppState.keeps = res.data
+      console.log(res.data)
     } catch (error) {
       console.error(error)
     }
@@ -13,7 +14,11 @@ class KeepService {
 
   async getKeepsByAccountId() {
     const res = await api.get('account/keeps')
-    console.log(res)
+    AppState.activeKeep = res.data
+  }
+
+  async getKeepsByVaultId(id) {
+    const res = await api.get('api/vault/' + id + '/keeps')
     AppState.activeKeep = res.data
   }
 }

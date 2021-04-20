@@ -1,8 +1,10 @@
 <template>
-  <div class="vaultComponent col-5 card m-1 img-fluid">
-    <h3>{{ vaultProp.name }}</h3>
-    <img class="img-fluid" :src="vaultProp.img" alt="">
-  </div>
+  <router-link :to="{ name: 'VaultPage' }" class="nav-link">
+    <div class="vaultComponent col-9 card m-1 img-fluid">
+      <h3>{{ vaultProp.name }}</h3>
+      <!-- <img class="img-fluid" :src="vaultProp.img" alt=""> -->
+    </div>
+  </router-link>
 </template>
 
 <script>

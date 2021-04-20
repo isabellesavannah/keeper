@@ -9,10 +9,7 @@
       </div>
     </div>
     <div class="row">
-      <!-- NOTE move to comp -->
-      <router-link :to="{ name: 'VaultPage' }" class="nav-link">
-        <vault-component v-for="vault in state.vaults" :key="vault.id" :vault-prop="vault" />
-      </router-link>
+      <vault-component v-for="vault in state.vaults" :key="vault.id" :vault-prop="vault" />
     </div>
     <div class="row">
       <keep-component v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />

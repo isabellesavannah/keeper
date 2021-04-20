@@ -29,7 +29,13 @@ USE finale;
 --    ON DELETE CASCADE
 -- );
 -- DROP TABLE vaults
-ALTER TABLE vaults CHANGE public isPrivate TINYINT(1)
+
+-- ALTER TABLE vaults CHANGE public isPrivate TINYINT(1)
+DELETE FROM keeps;
+    -- TRUNCATE TABLE vaults;
+    -- TRUNCATE TABLE vaultkeeps;
+    -- TRUNCATE TABLE keeps;
+
 -- CREATE TABLE vaults 
 -- ( 
 --   id INT NOT NULL AUTO_INCREMENT, 
