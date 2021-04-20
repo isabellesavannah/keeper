@@ -22,7 +22,21 @@ namespace keeper_server.Services
 
     internal void Delete(int id)
     {
-      //NOTE getbyid to validate its valid and you are the creator
+        //NOTE getbyid to validate its valid and you are the creator
+        _repo.Delete(id);
+    }
+
+    internal void Delete(int id, string userId)
+    {
+      VaultKeepViewModel vkm = _repo.GetById(id);
+      if (vkm == null)
+      {
+        throw new Exception("Invalid vkm");
+      }
+      if (vkm.CreatorId != userId)
+      {
+        throw new Exception("Invalid User");
+      }
       _repo.Delete(id);
     }
   }

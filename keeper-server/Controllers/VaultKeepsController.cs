@@ -42,7 +42,7 @@ namespace keeper_server.Controllers
       try
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        _service.Delete(id);
+        _service.Delete(id, userInfo.Id);
         return Ok("Deleted");
 
       }

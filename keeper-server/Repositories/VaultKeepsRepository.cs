@@ -31,5 +31,11 @@ namespace keeper_server.Repositories
       _db.Execute(sql, new { id });
 
     }
+
+    internal VaultKeepViewModel GetById(int id)
+    {
+      string sql = "SELECT * FROM vaultkeeps WHERE id = @id;";
+      return _db.QueryFirstOrDefault<VaultKeepViewModel>(sql, new { id });
+    }
   }
 }
