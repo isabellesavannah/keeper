@@ -93,16 +93,22 @@ namespace keeper_server.Repositories
         return keep;
       }, new { id }, splitOn: "id");
     }
-
+// FIXME
     internal IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
       string sql = @"SELECT 
       k.*,
-      vk.id AS VaultKeepId
+      vk.id AS VaultKeepId,
+      profile.*
       FROM vaultkeeps vk
+      JOIN profiles profile ON vk.creatorId = profile.id
       JOIN keeps k ON k.id = vk.keepId
-      WHERE vaultId = @id;";
-      return _db.Query<VaultKeepViewModel>(sql, new { id });
+      WHERE vk.vaultId = @id;";
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (keep, profile) =>
+      {
+        keep.Creator = profile;
+        return keep;
+      }, new { id }, splitOn: "id");
     }
 
     internal IEnumerable<Keep> GetByOwnerId(string id)

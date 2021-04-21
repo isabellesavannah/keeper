@@ -8,9 +8,16 @@ class AccountService {
       const res = await api.get('/account')
       AppState.account = res.data
     } catch (err) {
-      logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
+      logger.error(err)
     }
   }
+
+  // async getProfileById(keepId) {
+  //   console.log(keepId)
+  //   const res = await api.get('api/profiles/' + keepId)
+  //   console.log(res)
+  //   AppState.profile = res.data
+  // }
 }
 
 export const accountService = new AccountService()

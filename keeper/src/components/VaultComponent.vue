@@ -1,8 +1,8 @@
 <template>
-  <router-link :to="{ name: 'VaultPage' }" class="nav-link">
-    <div class="vaultComponent col-9 card m-1 img-fluid">
+  <router-link :to="{ name: 'VaultPage', params: { id: vaultProp.id } }" class="nav-link">
+    <div class="vaultComponent card img-fluid">
       <h3>{{ vaultProp.name }}</h3>
-      <!-- <img class="img-fluid" :src="vaultProp.img" alt=""> -->
+      <p>{{ vaultProp.creator.name }}</p>
     </div>
   </router-link>
 </template>
@@ -13,6 +13,10 @@ export default {
   name: 'VaultComponent',
   props: {
     vaultProp: {
+      type: Object,
+      required: true
+    },
+    keepProp: {
       type: Object,
       required: true
     }

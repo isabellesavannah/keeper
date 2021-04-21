@@ -73,8 +73,9 @@ namespace keeper_server.Services
 
     internal IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
-      IEnumerable<VaultKeepViewModel> vaults = _repo.GetKeepsByVaultId(id);
-      return vaults.ToList().FindAll(v => v.IsPrivate == false);
+      // we need to pull in the vaultservice and try to get the vault by its id first, this will handle isPrivate
+      IEnumerable<VaultKeepViewModel> keeps = _repo.GetKeepsByVaultId(id);
+      return keeps;
     }
 
     internal IEnumerable<Keep> GetKeepsByAccountId(string id)

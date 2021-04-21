@@ -16,8 +16,5 @@ namespace keeper_server
         public Profile Creator {get; set;}
     }
 
-    public class VaultKeepViewModel : Vault
-    {
-        public int VaultKeepId {get; set;}
-    }
+    
 }

@@ -1,14 +1,40 @@
 <template>
   <div class="profilePage">
-    herrro from profile page
+    <div class="row">
+      <vault-component v-for="vault in state.vaults" :key="vault.id" :vault-prop="vault" />
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <h1>
+          Keeps: {{ state.keeps.length }}
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <keep-component v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
+    </div>
   </div>
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { keepService } from '../services/KeepService'
+import { vaultService } from '../services/VaultService'
+import { useRoute } from 'vue-router'
 export default {
   name: 'ProfilePage',
   setup() {
-    return {}
+    const route = useRoute()
+    const state = reactive({
+      profile: computed(() => AppState.profile),
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults)
+    })
+    onMounted(() => keepService.getKeepsByProfileId(route.params.id))
+    onMounted(() => vaultService.getVaultsByProfileId(route.params.id))
+    return { state }
   },
   components: {}
 }
