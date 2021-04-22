@@ -34,6 +34,13 @@
           </div>
         </div>
         <div class="modal-footer">
+          <div class="col-5">
+            <select id="lists" @change="addKeepToVault()" v-model="state.newVaultKeep.vaultId">
+              <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
+                {{ vault.name }}
+              </option>
+            </select>
+          </div>
           <div class="col-4 w-100">
             <i class="fa fa-trash text-danger" @click="deleteKeep" v-if="keepProp.creatorId == state.account.id" aria-hidden="true" data-dismiss="modal"></i>
             <router-link v-if="keepProp.creatorId !== state.account.id" :to="{ name: 'ProfilePage', params: { id: keepProp.creatorId } }" class="nav-link" data-dismiss="modal">
@@ -47,11 +54,12 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { keepService } from '../services/KeepService'
 import swal from 'sweetalert2'
+// import { vaultService } from '../services/VaultService'
 
 export default {
   name: 'KeepComponent',
@@ -66,7 +74,12 @@ export default {
     // const router = useRouter()
     const state = reactive({
       account: computed(() => AppState.account),
-      keepProp: computed(() => AppState.keeps)
+      keepProp: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults),
+      newVaultKeep: { vaultId: null }
+    })
+    onMounted(() => {
+
     })
 
     return {
@@ -89,6 +102,14 @@ export default {
               swal.fire('Cancelled')
             }
           })
+      },
+      async addKeepToVault() {
+        try {
+          state.newVaultKeep.keepId = props.keepProp.id
+          await keepService.addKeepToVault(state.newVaultKeep)
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
   }

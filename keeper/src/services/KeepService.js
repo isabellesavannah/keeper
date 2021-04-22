@@ -6,7 +6,6 @@ class KeepService {
     try {
       const res = await api.get('api/keeps')
       AppState.keeps = res.data
-      console.log(res.data)
     } catch (error) {
       console.error(error)
     }
@@ -40,6 +39,20 @@ class KeepService {
     const keepIndex = AppState.activeKeep.findIndex(k => k.id === keepId)
     AppState.activeKeep.splice(keepIndex, 1)
     // this.getKeepsByAccountId()
+  }
+
+  async addKeepToVault(newVK) {
+    try {
+      console.log(newVK)
+
+      const res = await api.post('api/vaultKeeps', newVK)
+      newVK = res.data
+      // this.getKeepsByVaultId(newVK.id)
+      // go get tasks for new listIdthis
+      // go get tasks for Old listId (task)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 export const keepService = new KeepService()
