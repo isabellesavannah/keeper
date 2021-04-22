@@ -51,7 +51,7 @@ import { computed, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { keepService } from '../services/KeepService'
-// import swal from 'sweetalert2'
+import swal from 'sweetalert2'
 
 export default {
   name: 'KeepComponent',
@@ -73,20 +73,22 @@ export default {
       state,
       route,
       deleteKeep() {
-        // swal({
-        //   title: 'Delete Keep',
-        //   icon: 'warning',
-        //   buttons: true
-        // })
-        // swal.this((willDelete) => {
-        //   if (willDelete) {
-        //     swal({ icon: 'success' })
-        //     keepService.deleteKeep(props.keepProp.id)
-        //   } else {
-        //     swal('Cancelled')
-        //   }
-        // })
-        keepService.deleteKeep(props.keepProp.id)
+        swal.fire({
+          title: 'Are you sure you want to delete this keep?',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+        })
+          .then((willDelete) => {
+            if (willDelete.isConfirmed) {
+              swal.fire({
+                icon: 'success'
+              })
+              keepService.deleteKeep(props.keepProp.id)
+            } else {
+              swal.fire('Cancelled')
+            }
+          })
       }
     }
   }

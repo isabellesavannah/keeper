@@ -1,7 +1,8 @@
 <template>
-  <router-link :to="{ name: 'VaultPage', params: { id: vaultProp.id } }" class="nav-link">
+  <router-link v-if="vaultProp.isPrivate == false || vaultProp.creatorId == state.account.id" :to="{ name: 'VaultPage', params: { id: vaultProp.id } }" class="nav-link">
     <div class="vaultComponent card img-fluid">
       <h3>{{ vaultProp.name }}</h3>
+      {{ vaultProp.isPrivate }}
       <!-- <p>{{ vaultProp.creator.name }}</p> -->
     </div>
   </router-link>
@@ -9,6 +10,8 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
 export default {
   name: 'VaultComponent',
   props: {
@@ -23,6 +26,7 @@ export default {
   },
   setup() {
     const state = reactive({
+      account: computed(() => AppState.account)
     })
     return { state }
   },

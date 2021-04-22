@@ -33,7 +33,7 @@
                    aria-describedby="helpId"
                    v-model="state.newVault.description"
             >
-            <input type="checkbox" v-model="state.newVault.isPublic">
+            <input type="checkbox" v-model="state.newVault.isPrivate">
           </div>
           <button type="submit" class="btn btn-info">
             Create Vault
