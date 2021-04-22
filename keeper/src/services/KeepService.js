@@ -34,5 +34,12 @@ class KeepService {
     // AppState.reviews = [...AppState.reviews, res.data]
     this.getKeepsByAccountId(keep.id)
   }
+
+  async deleteKeep(keepId) {
+    await api.delete('api/keeps/' + keepId)
+    const keepIndex = AppState.keeps.findIndex(k => k.id === keepId)
+    AppState.keeps.splice(keepIndex, 1)
+    this.getKeeps()
+  }
 }
 export const keepService = new KeepService()

@@ -35,6 +35,7 @@
         </div>
         <div class="modal-footer">
           <div class="col-4 w-100">
+            <i class="fa fa-trash text-danger" @click="deleteKeep" v-if="keepProp.creatorId == state.account.id" aria-hidden="true" data-dismiss="modal"></i>
             <router-link :to="{ name: 'ProfilePage', params: { id: keepProp.creatorId } }" class="nav-link">
               <img class="img-fluid" data-dismiss="modal" :src="keepProp.creator.picture" alt="">
             </router-link>
@@ -46,8 +47,11 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
+import { keepService } from '../services/KeepService'
+// import swal from 'sweetalert2'
 
 export default {
   name: 'KeepComponent',
@@ -61,10 +65,28 @@ export default {
     const route = useRoute()
     // const router = useRouter()
     const state = reactive({
+      account: computed(() => AppState.account)
     })
+
     return {
       state,
-      route
+      route,
+      deleteKeep() {
+        // swal({
+        //   title: 'Delete Keep',
+        //   icon: 'warning',
+        //   buttons: true
+        // })
+        // swal.this((willDelete) => {
+        //   if (willDelete) {
+        //     swal({ icon: 'success' })
+        //     keepService.deleteKeep(props.keepProp.id)
+        //   } else {
+        //     swal('Cancelled')
+        //   }
+        // })
+        keepService.deleteKeep(props.keepProp.id)
+      }
     }
   }
 }
