@@ -36,7 +36,7 @@
         <div class="modal-footer">
           <div class="col-4 w-100">
             <i class="fa fa-trash text-danger" @click="deleteKeep" v-if="keepProp.creatorId == state.account.id" aria-hidden="true" data-dismiss="modal"></i>
-            <router-link :to="{ name: 'ProfilePage', params: { id: keepProp.creatorId } }" class="nav-link">
+            <router-link v-if="keepProp.creatorId !== state.account.id" :to="{ name: 'ProfilePage', params: { id: keepProp.creatorId } }" class="nav-link" data-dismiss="modal">
               <img class="img-fluid" data-dismiss="modal" :src="keepProp.creator.picture" alt="">
             </router-link>
           </div>
@@ -65,7 +65,8 @@ export default {
     const route = useRoute()
     // const router = useRouter()
     const state = reactive({
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      keepProp: computed(() => AppState.keeps)
     })
 
     return {

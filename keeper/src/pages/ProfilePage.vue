@@ -1,6 +1,13 @@
 <template>
   <div class="profilePage">
     <div class="row">
+      <div class="col-5">
+        <h1>
+          Vaults: {{ state.vaults.length }}
+        </h1>
+      </div>
+    </div>
+    <div class="row">
       <vault-component v-for="vault in state.vaults" :key="vault.id" :vault-prop="vault" />
     </div>
     <div class="row">

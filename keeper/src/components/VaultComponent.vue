@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'VaultPage', params: { id: vaultProp.id } }" class="nav-link">
     <div class="vaultComponent card img-fluid">
       <h3>{{ vaultProp.name }}</h3>
-      <p>{{ vaultProp.creator.name }}</p>
+      <!-- <p>{{ vaultProp.creator.name }}</p> -->
     </div>
   </router-link>
 </template>

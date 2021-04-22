@@ -8,6 +8,16 @@ class VaultService {
     AppState.activeVault = res.data
   }
 
+  async getVaultByVaultId(id) {
+    try {
+      const res = await api.get('api/vaults/' + id)
+      console.log(res.data)
+      AppState.activeVault = res.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async getVaultsByProfileId(id) {
     const res = await api.get('api/profiles/' + id + '/vaults')
     AppState.vaults = res.data
@@ -19,6 +29,13 @@ class VaultService {
     console.log(res)
     // AppState.reviews = [...AppState.reviews, res.data]
     this.getVaultsByAccountId(vault.id)
+  }
+
+  async deleteVault(vaultId) {
+    await api.delete('api/vaults/' + vaultId)
+    const vaultIndex = AppState.activeVault.findIndex(v => v.id === vaultId)
+    AppState.activeVault.splice(vaultIndex, 1)
+    // this.getVaultByVaultId()
   }
 }
 export const vaultService = new VaultService()
