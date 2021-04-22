@@ -31,7 +31,7 @@ USE finale;
 -- DROP TABLE vaults
 
 -- ALTER TABLE vaults CHANGE public isPrivate TINYINT(1)
-DELETE FROM keeps;
+-- DELETE FROM keeps;
     -- TRUNCATE TABLE vaults;
     -- TRUNCATE TABLE vaultkeeps;
     -- TRUNCATE TABLE keeps;

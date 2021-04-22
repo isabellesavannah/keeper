@@ -27,5 +27,12 @@ class KeepService {
     const res = await api.get('api/vaults/' + id + '/keeps')
     AppState.keeps = res.data
   }
+
+  async createKeep(keep) {
+    const res = await api.post('api/keeps', keep)
+    console.log(res)
+    // AppState.reviews = [...AppState.reviews, res.data]
+    this.getKeepsByAccountId(keep.id)
+  }
 }
 export const keepService = new KeepService()
