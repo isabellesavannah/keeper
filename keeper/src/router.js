@@ -20,14 +20,14 @@ const routes = [
   {
     path: '/profilePage/:id',
     name: 'ProfilePage',
-    component: loadPage('ProfilePage'),
-    beforeEnter: authGuard
+    component: loadPage('ProfilePage')
+    // beforeEnter: authGuard
   },
   {
     path: '/vaultPage/:id',
     name: 'VaultPage',
-    component: loadPage('VaultPage'),
-    beforeEnter: authGuard
+    component: loadPage('VaultPage')
+    // beforeEnter: authGuard
   }
   // NOTE params means the path it takes
 ]

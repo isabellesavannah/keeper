@@ -1,13 +1,19 @@
 <template>
   <div class="keepComponent col-4 card m-4 img-fluid keepC flex-stretch" data-toggle="modal" :data-target="`#keepModal` + keepProp.id">
     <img class="card-img" :src="keepProp.img" alt="Card image">
-    <div class="card-img-overlay">
-      <h3 class="text-white">
-        {{ keepProp.name }}
-      </h3>
-      <div v-if="keepProp.creator">
-        <p>{{ keepProp.id }}</p>
-        <p>{{ keepProp.creator.name }}</p>
+
+    <div class="row card-img-overlay">
+      <div class="col">
+        <h3 class="text-white">
+          {{ keepProp.name }}
+        </h3>
+      </div>
+      <div class="col-3">
+        <img class="cI img-fluid" :src="keepProp.creator.picture">
+        <!-- <div v-if="keepProp.creator">
+          <p>{{ keepProp.id }}</p>
+          <p>{{ keepProp.creator.name }}</p>
+        </div> -->
       </div>
     </div>
   </div>
@@ -81,7 +87,7 @@ export default {
     const state = reactive({
       account: computed(() => AppState.account),
       keepProp: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults),
+      vaults: computed(() => AppState.activeVault),
       newVaultKeep: { vaultId: null },
       activeVault: computed(() => AppState.activeVault)
     })
@@ -153,6 +159,9 @@ max-height: 43vh;
 .picc{
   max-height: 5vh;
 }
+// .cI{
+//   max-height: 2vh;
+// }
 // .deletebtn{
 //   float: left;
 // }
