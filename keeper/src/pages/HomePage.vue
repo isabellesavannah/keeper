@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row card-columns keepiesC">
     <keep-component v-for="k in state.keep" :key="k.id" :keep-prop="k" />
   </div>
 </template>
@@ -28,5 +28,12 @@ export default {
     height: 200px;
     width: 200px;
   }
+}
+.keepies{
+  justify-content: center;
+}
+.keepiesC{
+  justify-content: space-evenly;
+  align-items: center;
 }
 </style>

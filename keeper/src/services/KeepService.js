@@ -47,12 +47,18 @@ class KeepService {
 
       const res = await api.post('api/vaultKeeps', newVK)
       newVK = res.data
+      this.getKeeps()
       // this.getKeepsByVaultId(newVK.id)
       // go get tasks for new listIdthis
       // go get tasks for Old listId (task)
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async deleteKeepFromVault(kvId) {
+    await api.delete('api/vaultKeeps/' + kvId)
+    this.getKeepsByVaultId(AppState.activeVault.id)
   }
 }
 export const keepService = new KeepService()
